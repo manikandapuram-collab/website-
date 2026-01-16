@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pooja Booking | Manikandapuram Sree Dharmasastha</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        :root { --temple-gold: #B8860B; --ivory: #FFFDF9; --deep-slate: #1e293b; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; color: var(--deep-slate); }
+        h1, h2, h3, .divine-font { font-family: 'Cormorant Garamond', serif; }
+
+        /* HEADER SPARKLE (Exact match to Index Size) */
+        @keyframes glitteringSparkle {
+            0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); filter: blur(5px); }
+            50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.3); filter: blur(2px); }
+        }
+        .icon-glitter {
+            position: absolute; top: 50%; left: 50%; width: 130%; height: 130%;
+            background: radial-gradient(circle, rgba(255,215,0,0.5) 0%, rgba(184,134,11,0.2) 40%, transparent 70%);
+            border-radius: 50%; z-index: -1; animation: glitteringSparkle 4s infinite ease-in-out;
+        }
+
+        /* POOJA CARDS */
+        .pooja-card { 
+            cursor: pointer; 
+            border: 1px solid rgba(226, 232, 240, 0.8); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: white;
+            border-radius: 20px;
+        }
+        .pooja-card.selected { 
+            border-color: var(--temple-gold);
+            background: #fffef5;
+            box-shadow: inset 0 0 0 1px var(--temple-gold);
+        }
+
+        /* FLOW TO CART ANIMATION */
+        @keyframes flowToCart {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)) scale(0.1); opacity: 0; }
+        }
+        .fly-item {
+            position: fixed; pointer-events: none; z-index: 9999;
+            background: var(--temple-gold); width: 20px; height: 20px;
+            border-radius: 50%; animation: flowToCart 0.6s ease-in forwards;
+        }
+
+        /* DIVINE POOJA CART */
+        .pooja-cart-container {
+            background: white;
+            border-radius: 32px;
+            border: 1px solid rgba(184, 134, 11, 0.15);
+            position: sticky;
+            top: 110px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+        }
+        .cart-aura {
+            background: linear-gradient(to right, #8B6914, #B8860B, #8B6914);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .delete-btn {
+            color: #ef4444;
+            opacity: 0.4;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .delete-btn:hover { opacity: 1; transform: scale(1.1); }
+
+        .gold-btn { background: linear-gradient(135deg, #8B6914 0%, #B8860B 50%, #D4AF37 100%); color: white; transition: 0.3s; font-weight: 800; }
+    </style>
+</head>
+<body class="pt-32 pb-20 px-4 md:px-8">
+
+    <header class="fixed w-full top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-100">
+        <nav class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-5">
+                <div class="relative h-14 w-14 flex items-center justify-center">
+                    <div class="icon-glitter"></div>
+                    <img src="images/ayyappa1.png" class="h-14 w-auto relative z-10" alt="Logo">
+                </div>
+                <div>
+                    <span class="text-xl md:text-3xl font-black block leading-none divine-font text-black">Manikandapuram</span>
+                    <span class="text-[9px] md:text-[13px] uppercase tracking-[0.3em] font-black mt-1.5 block text-[#B8860B]">Sree Dharmasastha Kshethram</span>
+                </div>
+            </a>
+            <ul class="hidden lg:flex gap-10 items-center font-extrabold uppercase tracking-widest text-[12px]">
+                <li><a href="index.html" class="text-gray-700 hover:text-[#B8860B]">Home</a></li>
+                <li><a href="booking.html" class="text-[#B8860B] border-b-2 border-[#B8860B] pb-1">Pooja Booking</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            
+            <div class="lg:col-span-8 space-y-8">
+                <div class="bg-white p-6 md:p-10 rounded-[32px] border border-slate-100 shadow-sm">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                        <div class="space-y-3">
+                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-1">Devotee Name</label>
+                            <input type="text" id="devoteeName" oninput="updateCartUI()" class="w-full bg-slate-50 border border-slate-100 p-4 rounded-xl outline-none font-bold text-slate-700" placeholder="">
+                        </div>
+                        <div class="space-y-3">
+                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-1">Nakshathram</label>
+                            <select id="nakshathram" onchange="updateCartUI()" class="w-full bg-slate-50 border border-slate-100 p-4 rounded-xl outline-none font-bold text-slate-700">
+                                <option value="">Select Star</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="space-y-8">
+                        <div class="flex flex-wrap gap-3" id="deityTabs">
+                            <div class="px-6 py-3 rounded-xl border border-slate-100 font-bold text-xs cursor-pointer active bg-slate-900 text-white" onclick="filterPoojas('Ayyappan', this)">Ayyappan</div>
+                            <div class="px-6 py-3 rounded-xl border border-slate-100 font-bold text-xs cursor-pointer bg-white" onclick="filterPoojas('Ganapathi', this)">Ganapathi</div>
+                            <div class="px-6 py-3 rounded-xl border border-slate-100 font-bold text-xs cursor-pointer bg-white" onclick="filterPoojas('Muthappan', this)">Muthappan</div>
+                            <div class="px-6 py-3 rounded-xl border border-slate-100 font-bold text-xs cursor-pointer bg-white" onclick="filterPoojas('Devi', this)">Devi</div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="poojaGrid"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-4">
+                <div class="pooja-cart-container p-8" id="cartSticky">
+                    <div class="text-center pb-6 border-b border-slate-50">
+                        <h3 class="divine-font text-2xl cart-aura">Pooja Cart</h3>
+                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-[0.3em] mt-1">Sacred Ritual Summary</p>
+                    </div>
+
+                    <div class="py-6 space-y-6">
+                        <div id="devoteeBox" class="bg-slate-50/80 p-4 rounded-2xl border border-slate-100 hidden">
+                            <p id="sumName" class="font-extrabold text-slate-800 text-sm leading-tight"></p>
+                            <p id="sumStar" class="text-[11px] font-bold text-amber-600"></p>
+                        </div>
+
+                        <div id="cartList" class="space-y-3 max-h-[220px] overflow-y-auto pr-2 custom-scroll">
+                            <p class="text-center py-10 text-slate-400 text-[11px] font-bold uppercase tracking-widest italic">Empty Cart</p>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Pooja Date</label>
+                            <input type="text" id="datePicker" class="w-full bg-slate-50 border border-slate-100 p-4 rounded-xl font-bold text-xs" placeholder="Select Date">
+                        </div>
+
+                        <div class="pt-6 border-t border-slate-50 flex justify-between items-end">
+                            <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Grand Total</span>
+                            <span class="text-3xl font-black text-slate-900">₹<span id="totalPrice">0</span></span>
+                        </div>
+
+                        <button onclick="confirmBooking()" class="gold-btn w-full py-5 rounded-2xl text-[11px] uppercase tracking-widest shadow-xl mt-4">Confirm Vazhipadu</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = { apiKey: "AIzaSyBhzXyGNLYDDzQjA1w8NJ9NvyxAqv2onNY", authDomain: "temple-management-system-9c3c2.firebaseapp.com", projectId: "temple-management-system-9c3c2", storageBucket: "temple-management-system-9c3c2.firebasestorage.app", messagingSenderId: "960683500104", appId: "1:960683500104:web:e9b972349c28b98d7e2e7d" };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        let allPoojas = [];
+        let selectedItems = [];
+
+        const stars = ["Ashwati", "Bharani", "Kartika", "Rohini", "Makayiram", "Thiruvathira", "Punartham", "Pooyam", "Ayilyam", "Makam", "Pooram", "Uthram", "Atham", "Chitra", "Chothi", "Vishakham", "Anizham", "Thrikketta", "Moolam", "Pooradam", "Uthradam", "Thiruvonam", "Avittam", "Chathayam", "Pooruruttathi", "Uthruttathi", "Revathi"];
+        const starSelect = document.getElementById('nakshathram');
+        stars.forEach(s => starSelect.innerHTML += `<option value="${s}">${s}</option>`);
+
+        async function fetchPoojas() {
+            const snap = await getDocs(collection(db, "poojas"));
+            allPoojas = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            filterPoojas('Ayyappan', document.querySelector('#deityTabs div'));
+        }
+
+        window.filterPoojas = (deity, el) => {
+            document.querySelectorAll('#deityTabs div').forEach(t => t.className = "px-6 py-3 rounded-xl border border-slate-100 font-bold text-xs cursor-pointer bg-white");
+            el.className = "px-6 py-3 rounded-xl border border-slate-100 font-bold text-xs cursor-pointer bg-slate-900 text-white";
+            const filtered = allPoojas.filter(p => p.deity === deity || p.diety === deity);
+            document.getElementById('poojaGrid').innerHTML = filtered.map(p => `
+                <div class="pooja-card p-6 flex justify-between items-center ${selectedItems.find(c => c.id === p.id) ? 'selected' : ''}" 
+                     onclick="handleItemClick(event, '${p.id}')" id="p-${p.id}">
+                    <div class="flex flex-col">
+                        <span class="font-extrabold text-slate-800 text-sm tracking-tight">${p.name_en || p.name}</span>
+                        <span class="text-[9px] text-amber-600 font-bold uppercase mt-1 tracking-widest">${p.name_ml || ''}</span>
+                    </div>
+                    <span class="font-black text-slate-900 text-lg">₹${p.price}</span>
+                </div>`).join('');
+        };
+
+        window.handleItemClick = (event, id) => {
+            const item = allPoojas.find(p => p.id === id);
+            const idx = selectedItems.findIndex(c => c.id === id);
+            
+            if(idx > -1) { 
+                removeItem(id);
+            } else {
+                // Animation
+                const rect = event.currentTarget.getBoundingClientRect();
+                const cart = document.getElementById('cartSticky').getBoundingClientRect();
+                const fly = document.createElement('div');
+                fly.className = 'fly-item';
+                fly.style.left = `${rect.left + rect.width / 2}px`;
+                fly.style.top = `${rect.top + rect.height / 2}px`;
+                fly.style.setProperty('--x', `${cart.left - rect.left}px`);
+                fly.style.setProperty('--y', `${cart.top - rect.top}px`);
+                document.body.appendChild(fly);
+                setTimeout(() => fly.remove(), 600);
+
+                selectedItems.push(item);
+                document.getElementById(`p-${id}`)?.classList.add('selected');
+                updateCartUI();
+            }
+        };
+
+        window.removeItem = (id) => {
+            selectedItems = selectedItems.filter(i => i.id !== id);
+            document.getElementById(`p-${id}`)?.classList.remove('selected');
+            updateCartUI();
+        };
+
+        window.updateCartUI = () => {
+            const name = document.getElementById('devoteeName').value;
+            const star = document.getElementById('nakshathram').value;
+            const box = document.getElementById('devoteeBox');
+            if(name || star) {
+                box.classList.remove('hidden');
+                document.getElementById('sumName').innerText = name || "Unnamed Devotee";
+                document.getElementById('sumStar').innerText = star || "Nakshathram Not Set";
+            } else { box.classList.add('hidden'); }
+
+            const list = document.getElementById('cartList');
+            if(selectedItems.length === 0) {
+                list.innerHTML = `<p class="text-center py-10 text-slate-400 text-[11px] font-bold uppercase tracking-widest italic">Empty Cart</p>`;
+            } else {
+                list.innerHTML = selectedItems.map(c => `
+                    <div class="flex justify-between items-center bg-white p-3 rounded-xl border border-slate-100 shadow-sm group">
+                        <div>
+                            <p class="font-bold text-slate-700 text-[12px]">${c.name_en || c.name}</p>
+                            <p class="text-[9px] font-black text-slate-300 uppercase">${c.deity || c.diety}</p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="font-black text-slate-900 text-[12px]">₹${c.price}</span>
+                            <i class="fa-solid fa-circle-xmark delete-btn" onclick="removeItem('${c.id}')"></i>
+                        </div>
+                    </div>`).join('');
+            }
+            document.getElementById('totalPrice').innerText = selectedItems.reduce((s, p) => s + parseInt(p.price), 0);
+        };
+
+        flatpickr("#datePicker", {
+            dateFormat: "d-m-Y",
+            minDate: "today",
+            enable: [
+                function(date) {
+                    const dStr = date.toISOString().split('T')[0];
+                    const malFirst = ["2026-01-14", "2026-02-13", "2026-03-15", "2026-04-14", "2026-05-15", "2026-06-15", "2026-07-16", "2026-08-17", "2026-09-17", "2026-10-17", "2026-11-16", "2026-12-16"];
+                    const specials = ["2026-02-15", "2026-04-14", "2026-08-28", "2026-10-18", "2026-10-19", "2026-10-20"];
+                    const m = date.getMonth(), d = date.getDate();
+                    return date.getDay() === 6 || malFirst.includes(dStr) || specials.includes(dStr) || (m === 10 && d >= 17) || (m === 11 && d <= 27);
+                }
+            ]
+        });
+
+        window.confirmBooking = async () => {
+            const name = document.getElementById('devoteeName').value;
+            const star = document.getElementById('nakshathram').value;
+            const date = document.getElementById('datePicker').value;
+            if(!name || !star || !date || selectedItems.length === 0) return alert("Please complete selection");
+
+            await addDoc(collection(db, "public_bookings"), { 
+                devoteeName: name, star, date, 
+                poojas: selectedItems.map(c => ({ name: c.name_en || c.name, price: c.price })),
+                totalPrice: document.getElementById('totalPrice').innerText,
+                timestamp: new Date()
+            });
+            alert("Saranam Ayyappa! Booking Successful.");
+            window.location.href = "index.html";
+        };
+
+        fetchPoojas();
+    </script>
+</body>
+</html>
