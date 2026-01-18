@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manikandapuram Sree Dharmasastha | Home</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        :root { --temple-gold: #B8860B; --ivory: #FFFDF9; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--ivory); color: #1a1a1a; scroll-behavior: smooth; }
+        h1, h2, h3, .divine-font { font-family: 'Cormorant Garamond', serif; }
+
+        /* HERO - Height Reduced here */
+        .hero-home { 
+            height: 65vh; /* CHANGED: Reduced from 85vh */
+            position: relative; 
+            overflow: hidden; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            clip-path: ellipse(150% 100% at 50% 0%); 
+        }
+        
+        .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transition: opacity 1.5s ease-in-out; z-index: -2; }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5)); z-index: -1; }
+
+        /* Gold Glitter Text */
+        .glitter-text {
+            background: linear-gradient(90deg, #8B6914, #B8860B, #FCF6BA, #D4AF37, #8B6914);
+            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: glitter 4s linear infinite; font-weight: 800; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.4));
+        }
+        @keyframes glitter { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
+
+        /* Glass Header */
+        .glass-header { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.3s ease; }
+        .glass-header.scrolled { background: rgba(255, 255, 255, 0.9); border-bottom: 1px solid rgba(184, 134, 11, 0.1); }
+
+        /* Cards */
+        .time-card { background: white; border-radius: 32px; padding: 2.5rem; border: 1px solid rgba(184, 134, 11, 0.15); box-shadow: 0 10px 40px rgba(0,0,0,0.03); height: 100%; transition: 0.3s; }
+        .time-card:hover { transform: translateY(-5px); border-color: var(--temple-gold); }
+
+        /* Live Status Bubble */
+        .bubble { width: 12px; height: 12px; border-radius: 50%; display: inline-block; position: relative; }
+        .bubble::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; animation: bubble-pulse 2s infinite; }
+        .bg-open { background-color: #15803d; } .bg-open::after { background-color: #15803d; }
+        .bg-closed { background-color: #b91c1c; } .bg-closed::after { background-color: #b91c1c; }
+        @keyframes bubble-pulse { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(3); opacity: 0; } }
+
+        /* Buttons & Logo Glow */
+        .gold-btn { background: linear-gradient(135deg, #B8860B 0%, #D4AF37 100%); color: white; border-radius: 9999px; padding: 0.75rem 2.5rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; font-size: 0.7rem; box-shadow: 0 4px 15px rgba(184, 134, 11, 0.3); transition: all 0.3s; }
+        .gold-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(184, 134, 11, 0.5); }
+        .radiant-logo { filter: drop-shadow(0 0 15px rgba(184, 134, 11, 0.6)); animation: glow-pulse 3s infinite; }
+        @keyframes glow-pulse { 0% { filter: drop-shadow(0 0 15px rgba(184, 134, 11, 0.6)); } 50% { filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.8)); } 100% { filter: drop-shadow(0 0 15px rgba(184, 134, 11, 0.6)); } }
+        
+        .chat-pulse { animation: chat-glow 2s infinite; background: linear-gradient(135deg, #8B6914, #B8860B); }
+        @keyframes chat-glow { 0% { box-shadow: 0 0 0 0 rgba(184, 134, 11, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(184, 134, 11, 0); } 100% { box-shadow: 0 0 0 0 rgba(184, 134, 11, 0); } }
+    </style>
+</head>
+<body class="overflow-x-hidden" onload="initPage()">
+
+    <header id="main-header" class="fixed w-full top-0 z-50 glass-header">
+        <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-4">
+                <img src="images/ayyappa1.png" class="h-14 w-auto radiant-logo" alt="Logo">
+                <div>
+                    <span class="text-2xl md:text-3xl font-black block divine-font text-white drop-shadow-md" id="header-title">Manikandapuram</span>
+                    <span class="text-[11px] md:text-[13px] uppercase tracking-[0.25em] font-extrabold block text-amber-200 mt-1 drop-shadow-sm" id="header-sub">Sree Dharmasastha Kshethram</span>
+                </div>
+            </a>
+            <ul class="hidden lg:flex gap-8 items-center font-extrabold uppercase tracking-widest text-[11px]">
+                <li><a href="index.html" class="text-white hover:text-amber-300 transition-colors drop-shadow-sm">Home</a></li>
+                <li><a href="booking.html" class="text-white hover:text-amber-300 transition-colors drop-shadow-sm">Booking Pooja</a></li>
+                <li><a href="booking.html" class="gold-btn">Book Now</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-home text-center px-6 pt-20">
+        <div id="bg1" class="hero-bg opacity-100" style="background-image: url('images/banner1.jpg');"></div>
+        <div id="bg2" class="hero-bg opacity-0" style="background-image: url('images/banner2.jpg');"></div>
+        <div class="hero-overlay"></div>
+        <div class="max-w-5xl relative z-10 flex flex-col items-center">
+            <h1 class="glitter-text text-6xl md:text-8xl font-bold mb-4 tracking-tight leading-none">Saranam Ayyappa</h1>
+            
+            <p class="text-white/95 text-lg md:text-xl font-light tracking-wide max-w-2xl leading-relaxed drop-shadow-md">
+                Connecting devotees to the eternal blessings of the Lord through sacred traditions
+            </p>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto -mt-16 relative z-10 px-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <div class="time-card border-t-4 border-[#B8860B]">
+                <span class="text-[12px] font-black uppercase tracking-[0.25em] text-[#B8860B] mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-circle-dot"></i> Live Status
+                </span>
+                <div class="flex items-center gap-3">
+                    <span id="status-bubble" class="bubble bg-closed"></span>
+                    <div id="live-status" class="text-3xl font-black divine-font tracking-widest uppercase">Checking...</div>
+                </div>
+                <p id="status-desc" class="text-[11px] mt-3 text-gray-500 font-bold uppercase tracking-wider">Syncing Calendar...</p>
+            </div>
+
+            <div class="time-card">
+                <span class="text-[12px] font-black uppercase tracking-[0.25em] text-[#B8860B] mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-calendar-check"></i> Open Days
+                </span>
+                <h3 class="divine-font text-2xl font-bold text-gray-950 mb-3">Every Saturday</h3>
+                <ul class="text-[12px] text-gray-600 font-bold uppercase tracking-widest leading-loose">
+                    <li>Malayalam Month 1st</li>
+                    <li>Sankramam (Evening)</li>
+                    <li>Mandala Masam Days</li>
+                </ul>
+            </div>
+
+            <div class="time-card">
+                <span class="text-[12px] font-black uppercase tracking-[0.25em] text-[#B8860B] mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-clock"></i> Darshan Time
+                </span>
+                <div class="flex flex-col space-y-3">
+                    <div class="flex justify-between items-center py-2 border-b border-gray-50">
+                        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Morning</span>
+                        <span class="text-xl font-black text-gray-900">05:30 — 09:30</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2">
+                        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Evening</span>
+                        <span class="text-xl font-black text-gray-900">05:30 — 08:00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 max-w-7xl mx-auto">
+        <h2 class="text-center text-5xl font-bold mb-16 text-[#B8860B] divine-font">Divine Presences</h2>
+        <div id="deity-grid" class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            </div>
+    </section>
+
+    <section class="py-12 px-6 max-w-7xl mx-auto">
+        <div class="rounded-[2.5rem] overflow-hidden h-[450px] border border-gold/10 shadow-2xl relative">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3902.502868884976!2d75.3853!3d12.0089!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDAwJzMyLjAiTiA3NcKwMjMnMDcuMSJF!5e0!3m2!1sen!2sin!4v1631234567890!5m2!1sen!2sin" 
+                width="100%" 
+                height="100%" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+            <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur px-4 py-2 rounded-xl text-xs font-bold shadow-lg border border-gold/20">
+                <i class="fa-solid fa-location-dot text-[#B8860B] mr-2"></i> Panapuzha, Kannur
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white py-12 px-6 border-t border-gray-100 text-center">
+        <h3 class="divine-font text-3xl text-[#B8860B] mb-4">Contact Us</h3>
+        <p class="text-sm text-gray-600 max-w-lg mx-auto font-semibold leading-relaxed">
+            Manikandapuram Sree Dharmasastha Kshethram, Paravoor, Vellora road, Panapuzha (PO) - 670306, Kannur Dist, Kerala
+        </p>
+    </footer>
+
+    <div class="fixed bottom-6 right-6 z-[1000]">
+        <button onclick="toggleChat()" class="w-16 h-16 rounded-full shadow-2xl flex items-center justify-center text-white text-2xl chat-pulse">
+            <i class="fa-solid fa-om"></i>
+        </button>
+        <div id="chat-box" class="hidden absolute bottom-20 right-0 w-80 h-[450px] bg-white rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-gold/10">
+            <div class="bg-[#B8860B] p-5 text-white">
+                <p class="text-[10px] uppercase font-black tracking-widest opacity-80">Temple Helpdesk</p>
+                <h3 class="divine-font text-xl">Swami Saranam</h3>
+            </div>
+            <div id="chat-content" class="flex-1 p-4 overflow-y-auto bg-gray-50 text-sm space-y-4">
+                <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-gray-100 shadow-sm text-gray-700">Swami Saranam! How can we assist you?</div>
+            </div>
+            <div class="p-4 border-t flex gap-2">
+                <input type="text" id="chat-input" placeholder="Ask a question..." class="flex-1 bg-gray-100 rounded-xl px-4 py-2 text-xs outline-none text-black">
+                <button onclick="sendChat()" class="w-10 h-10 bg-[#B8860B] text-white rounded-xl"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        const app = initializeApp({ apiKey: "AIzaSyBhzXyGNLYDDzQjA1w8NJ9NvyxAqv2onNY", authDomain: "temple-management-system-9c3c2.firebaseapp.com", projectId: "temple-management-system-9c3c2", storageBucket: "temple-management-system-9c3c2.firebasestorage.app", messagingSenderId: "960683500104", appId: "1:960683500104:web:e9b972349c28b98d7e2e7d" });
+        const db = getFirestore(app);
+
+        window.loadDeities = async () => {
+            const grid = document.getElementById('deity-grid');
+            const snap = await getDocs(collection(db, "deities"));
+            const imageMap = { "Ayyappan": "images/ayyappa.png", "Ganapathi": "images/ganesha.png", "Muthappan": "images/muthappan.png", "Devi": "images/devi.png" };
+            const orderList = ["Ayyappan", "Ganapathi", "Muthappan", "Devi"];
+            let deityData = [];
+            snap.forEach(doc => {
+                const data = doc.data();
+                const matchName = orderList.find(name => data.name.includes(name));
+                if(matchName) { deityData.push({ ...data, orderIndex: orderList.indexOf(matchName), img: imageMap[matchName] }); }
+            });
+            deityData.sort((a, b) => a.orderIndex - b.orderIndex);
+            grid.innerHTML = deityData.map(deity => `
+                <div class="deity-card group cursor-pointer" onclick="location.href='booking.html'">
+                    <div class="aspect-[4/5] rounded-2xl overflow-hidden mb-4"><img src="${deity.img}" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"></div>
+                    <h3 class="divine-font text-center text-2xl font-bold text-[#B8860B]">${deity.name}</h3>
+                </div>`).join("");
+        };
+    </script>
+
+    <script>
+        // HEADER SCROLL LOGIC
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            const title = document.getElementById('header-title');
+            const sub = document.getElementById('header-sub');
+            const links = document.querySelectorAll('nav a');
+            
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+                title.classList.remove('text-white'); title.classList.add('text-black');
+                sub.classList.remove('text-amber-200'); sub.classList.add('text-[#B8860B]');
+                links.forEach(l => { if(!l.classList.contains('gold-btn')) l.classList.replace('text-white', 'text-gray-800'); });
+            } else {
+                header.classList.remove('scrolled');
+                title.classList.add('text-white'); title.classList.remove('text-black');
+                sub.classList.add('text-amber-200'); sub.classList.remove('text-[#B8860B]');
+                links.forEach(l => { if(!l.classList.contains('gold-btn')) l.classList.replace('text-gray-800', 'text-white'); });
+            }
+        });
+
+        // 2026 CALENDAR LOGIC
+        const templeSchedule = {
+            "2026-01-24": {"day": "Saturday", "m": [5.5, 9.5], "e": [17.5, 19.5]},
+            "2026-01-31": {"day": "Saturday", "m": [5.5, 9.5], "e": [17.5, 19.5]},
+            "2026-02-07": {"day": "Saturday", "m": [5.5, 9.5], "e": [17.5, 19.5]},
+            "2026-02-12": {"day": "Thursday", "m": null, "e": [17.5, 19.5]},
+            "2026-02-13": {"day": "Friday", "m": [5.5, 9.5], "e": [17.5, 20.0]},
+            "2026-02-14": {"day": "Saturday", "m": [5.5, 9.5], "e": [17.5, 19.5]},
+            "2026-02-15": {"day": "Sunday", "m": [5.5, 9.5], "e": [17.5, 20.0]},
+            "2026-02-21": {"day": "Saturday", "m": [5.5, 9.5], "e": [17.5, 19.5]},
+            "2026-02-28": {"day": "Saturday", "m": [5.5, 9.5], "e": [17.5, 19.5]},
+            "2026-03-07": {"day": "Saturday", "m": [5.5, 9.5], "e": [17.5, 19.5]},
+            "2026-11-17": {"day": "Tuesday", "m": [5.5, 9.5], "e": [17.5, 20.0]}
+        };
+
+        function updateStatus() {
+            const now = new Date();
+            const dateStr = now.toISOString().split('T')[0];
+            const hour = now.getHours() + now.getMinutes()/60;
+            const statusBox = document.getElementById('live-status');
+            const bubble = document.getElementById('status-bubble');
+            const desc = document.getElementById('status-desc');
+
+            const today = templeSchedule[dateStr];
+            let isOpen = false;
+
+            if(today) {
+                if(today.m && hour >= today.m[0] && hour <= today.m[1]) isOpen = true;
+                if(today.e && hour >= today.e[0] && hour <= today.e[1]) isOpen = true;
+            }
+
+            statusBox.innerText = isOpen ? "OPEN NOW" : "CLOSED";
+            statusBox.style.color = isOpen ? "#15803d" : "#b91c1c";
+            bubble.className = isOpen ? "bubble bg-open" : "bubble bg-closed";
+            
+            if(!isOpen) {
+                const dates = Object.keys(templeSchedule).sort();
+                let nextDate = "Check Schedule";
+                for(let d of dates) if(d >= dateStr) { 
+                    const [y, m, day] = d.split('-'); 
+                    nextDate = `${day}-${m}-${y} (${templeSchedule[d].day})`; break; 
+                }
+                desc.innerText = "Next: " + nextDate;
+            } else {
+                desc.innerText = "Devotees Welcome";
+            }
+        }
+
+        function initPage() {
+            updateStatus(); setInterval(updateStatus, 30000);
+            if(window.loadDeities) window.loadDeities();
+            setInterval(() => {
+                const b1 = document.getElementById('bg1'), b2 = document.getElementById('bg2');
+                const is1 = b1.style.opacity === '1';
+                b1.style.opacity = is1 ? '0' : '1'; b2.style.opacity = is1 ? '1' : '0';
+            }, 5000);
+        }
+
+        function toggleChat() { document.getElementById('chat-box').classList.toggle('hidden'); }
+        function sendChat() {
+            const i = document.getElementById('chat-input'), c = document.getElementById('chat-content');
+            if(!i.value) return;
+            c.innerHTML += `<div class="flex flex-col items-end"><div class="bg-[#B8860B] text-white p-3 rounded-2xl rounded-tr-none shadow-sm">${i.value}</div></div>`;
+            i.value = ""; c.scrollTop = c.scrollHeight;
+        }
+    </script>
+</body>
+</html>
