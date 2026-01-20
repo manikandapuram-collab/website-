@@ -17,15 +17,28 @@
         h1, h2, h3, .divine-font { font-family: 'Cormorant Garamond', serif; }
         .readable-font { font-family: 'Plus Jakarta Sans', sans-serif; }
 
-        /* HERO SECTION */
+        /* HERO SECTION - RESPONSIVE HEIGHTS FOR BETTER MOBILE VIEW */
         .hero-home { 
-            height: 85vh; 
+            /* Mobile Height: Shorter to show more width without cropping */
+            height: 55vh; 
+            min-height: 450px;
+
             position: relative; 
             overflow: hidden; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
             clip-path: ellipse(150% 100% at 50% 0%); 
+        }
+
+        /* Tablet/Small Laptop Height */
+        @media (min-width: 768px) {
+            .hero-home { height: 75vh; }
+        }
+
+        /* Desktop Height - Grand View */
+        @media (min-width: 1024px) {
+            .hero-home { height: 85vh; }
         }
         
         /* Background Logic */
@@ -170,7 +183,7 @@
         <a href="booking.html" class="gold-btn text-lg px-8 py-3 mt-4">Book Now</a>
     </div>
 
-    <section class="hero-home text-center px-6 pt-20">
+    <section class="hero-home text-center px-6 pt-16 md:pt-20">
         <div id="bg1" class="hero-bg opacity-100" style="background-image: url('images/banner1.png');"></div>
         <div id="bg2" class="hero-bg opacity-0" style="background-image: url('images/banner3.png');"></div>
         <div id="bg3" class="hero-bg opacity-0" style="background-image: url('images/banner2.png');"></div>
@@ -179,18 +192,18 @@
         <div class="hero-overlay"></div>
         
         <div class="max-w-5xl relative z-10 flex flex-col items-center">
-            <h1 class="glitter-text text-6xl md:text-8xl font-bold mb-1 tracking-tight leading-none">Saranam Ayyappa</h1>
+            <h1 class="glitter-text text-5xl md:text-8xl font-bold mb-1 tracking-tight leading-none">Saranam Ayyappa</h1>
             
-            <div class="h-px w-24 bg-gradient-to-r from-transparent via-[#B8860B] to-transparent my-2 opacity-80"></div>
+            <div class="h-px w-24 bg-gradient-to-r from-transparent via-[#B8860B] to-transparent my-3 opacity-80"></div>
 
-            <p class="text-amber-50 text-xl md:text-3xl font-medium tracking-widest max-w-5xl leading-relaxed drop-shadow-xl divine-font text-center" style="text-shadow: 0 2px 15px rgba(0,0,0,0.7);">
+            <p class="text-amber-50 text-lg md:text-3xl font-medium tracking-widest max-w-5xl leading-relaxed drop-shadow-xl divine-font text-center" style="text-shadow: 0 2px 15px rgba(0,0,0,0.7);">
                 <span class="block mb-1">Bhootha Nātha Sadhānātha Sarva Bhootha Dayāpara</span>
                 <span class="block text-amber-100/95">Raksha Raksha Mahābāho Śāstre Tubhyaṁ Namō Namah</span>
             </p>
         </div>
     </section>
 
-    <section class="max-w-7xl mx-auto -mt-16 relative z-10 px-6">
+    <section class="max-w-7xl mx-auto -mt-8 md:-mt-16 relative z-10 px-6">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="time-card border-t-4 border-[#B8860B]">
                 <span class="text-[12px] font-black uppercase tracking-[0.25em] text-[#B8860B] mb-4 flex items-center gap-2">
