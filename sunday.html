@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manikandapuram Sree Dharmasastha | Home</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -13,60 +13,48 @@
         :root { --temple-gold: #B8860B; --ivory: #FFFDF9; --chat-bg: #f3f4f6; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--ivory); color: #1a1a1a; scroll-behavior: smooth; }
         
-        /* Typography Classes */
         h1, h2, h3, .divine-font { font-family: 'Cormorant Garamond', serif; }
         .readable-font { font-family: 'Plus Jakarta Sans', sans-serif; }
 
-        /* HERO SECTION - RESPONSIVE HEIGHTS FOR BETTER MOBILE VIEW */
+        /* --- HERO SECTION --- */
         .hero-home { 
-            /* Mobile Height: Shorter to show more width without cropping */
-            height: 55vh; 
-            min-height: 450px;
-
-            position: relative; 
-            overflow: hidden; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
+            height: 60vh; min-height: 500px; /* Mobile */
+            position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; 
             clip-path: ellipse(150% 100% at 50% 0%); 
         }
-
-        /* Tablet/Small Laptop Height */
-        @media (min-width: 768px) {
-            .hero-home { height: 75vh; }
-        }
-
-        /* Desktop Height - Grand View */
-        @media (min-width: 1024px) {
-            .hero-home { height: 85vh; }
-        }
+        @media (min-width: 768px) { .hero-home { height: 75vh; } }
+        @media (min-width: 1024px) { .hero-home { height: 85vh; } }
         
-        /* Background Logic */
         .hero-bg { 
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            background-size: cover; 
-            background-position: center center; 
-            transition: opacity 1.5s ease-in-out; 
-            z-index: -2; 
-            
-            /* Sharpness Enhancements */
-            image-rendering: -webkit-optimize-contrast; 
-            transform: translateZ(0); 
-            will-change: opacity;
+            background-size: cover; background-position: center center; 
+            transition: opacity 1.5s ease-in-out; z-index: -2; 
+            image-rendering: -webkit-optimize-contrast; transform: translateZ(0); will-change: opacity;
         }
         
-        /* Overlay - Light for clarity */
+        /* Reduced Overlay (Very Light) */
         .hero-overlay { 
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.1)); 
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0)); 
             z-index: -1; 
         }
 
-        /* Gold Glitter Text */
+        /* --- TEXT VISIBILITY FIXES --- */
+        /* 1. Radial Shadow: Creates a dark spot ONLY behind text */
+        .text-backdrop {
+            background: radial-gradient(closest-side, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%);
+            padding: 40px; border-radius: 100px;
+        }
+        /* 2. High Contrast Shadow: Hard outline + Soft glow */
+        .high-vis-text {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8), 0 8px 16px rgba(0,0,0,0.6);
+        }
+
         .glitter-text {
-            background: linear-gradient(90deg, #8B6914, #B8860B, #FCF6BA, #D4AF37, #8B6914);
+            background: linear-gradient(90deg, #FDD017, #B8860B, #FFF8DC, #D4AF37, #FDD017); /* Brighter Gold */
             background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: glitter 4s linear infinite; font-weight: 800; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.4));
+            animation: glitter 4s linear infinite; font-weight: 800; 
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.8)); /* Stronger shadow for glitter */
         }
         @keyframes glitter { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
 
@@ -91,58 +79,44 @@
         .radiant-logo { filter: drop-shadow(0 0 15px rgba(184, 134, 11, 0.6)); animation: glow-pulse 3s infinite; }
         @keyframes glow-pulse { 0% { filter: drop-shadow(0 0 15px rgba(184, 134, 11, 0.6)); } 50% { filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.8)); } 100% { filter: drop-shadow(0 0 15px rgba(184, 134, 11, 0.6)); } }
         
-        /* --- MODERN CHATBOT STYLES --- */
-        .chat-float-btn { 
-            animation: float-glow 3s infinite; 
-            background: linear-gradient(135deg, #B8860B, #D4AF37); 
-            border: 2px solid white;
-        }
+        /* --- CHATBOT & SMOOTH ANIMATION --- */
+        .chat-float-btn { animation: float-glow 3s infinite; background: linear-gradient(135deg, #B8860B, #D4AF37); border: 2px solid white; }
         .map-float-btn { background: white; color: #B8860B; border: 2px solid #B8860B; transition: 0.3s; }
         .map-float-btn:hover { background: #B8860B; color: white; transform: scale(1.1); }
+        
+        .chat-interface { transform: translateY(20px); opacity: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); visibility: hidden; pointer-events: none; }
+        .chat-interface.active { transform: translateY(0); opacity: 1; visibility: visible; pointer-events: auto; }
 
-        .chat-interface {
-            transform: translateY(20px); opacity: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            visibility: hidden;
-            pointer-events: none;
-        }
-        .chat-interface.active {
-            transform: translateY(0); opacity: 1; visibility: visible;
-            pointer-events: auto;
-        }
-
-        /* Message Bubbles */
         .msg-bot { background: white; color: #374151; border-bottom-left-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .msg-user { background: #B8860B; color: white; border-bottom-right-radius: 4px; box-shadow: 0 4px 10px rgba(184, 134, 11, 0.2); }
         
-        /* Golden AI Generation Animation */
-        .ai-generate-loader {
-            width: 24px; height: 24px; border-radius: 50%;
-            background: radial-gradient(circle, #D4AF37 30%, transparent 70%);
-            position: relative;
+        /* --- BUTTER SMOOTH AI ANIMATION --- */
+        .ai-flow-container { display: flex; gap: 6px; align-items: center; justify-content: center; height: 24px; }
+        
+        /* Using SVG stars for sharper look or FontAwesome with specific flow */
+        .flow-star {
+            color: #B8860B;
+            font-size: 14px;
+            /* Cubic-bezier for "butter" smoothness */
+            animation: flow-pulse 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            opacity: 0;
         }
-        .ai-generate-loader::before, .ai-generate-loader::after {
-            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            border-radius: 50%; border: 1px solid #B8860B;
-            animation: ripple 1.5s infinite ease-out;
-        }
-        .ai-generate-loader::after { animation-delay: 0.5s; }
-        @keyframes ripple {
-            0% { width: 0; height: 0; opacity: 1; border-width: 2px; }
-            100% { width: 30px; height: 30px; opacity: 0; border-width: 0px; }
+        /* Staggered Delays for Flow Effect */
+        .flow-star:nth-child(1) { animation-delay: 0s; }
+        .flow-star:nth-child(2) { animation-delay: 0.3s; font-size: 18px; } /* Center star bigger */
+        .flow-star:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes flow-pulse {
+            0% { transform: scale(0.5) translateY(5px); opacity: 0; }
+            50% { transform: scale(1.1) translateY(0); opacity: 1; text-shadow: 0 0 10px rgba(184,134,11, 0.8); }
+            100% { transform: scale(0.5) translateY(-5px); opacity: 0; }
         }
 
-        /* Chip Buttons */
         .chat-chip { font-size: 11px; padding: 6px 12px; border-radius: 20px; border: 1px solid #e5e7eb; background: white; color: #4b5563; transition: 0.2s; cursor: pointer; white-space: nowrap; }
         .chat-chip:hover { border-color: #B8860B; color: #B8860B; background: #fffcf5; }
 
-        /* Mobile Menu */
-        .mobile-menu {
-            transform: translateX(100%); transition: transform 0.3s ease-in-out;
-        }
-        .mobile-menu.active {
-            transform: translateX(0);
-        }
-
+        .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease-in-out; }
+        .mobile-menu.active { transform: translateX(0); }
     </style>
 </head>
 <body class="overflow-x-hidden" onload="initPage()">
@@ -156,49 +130,39 @@
                     <span class="text-[11px] md:text-[13px] uppercase tracking-[0.25em] font-extrabold block text-amber-200 mt-1 drop-shadow-sm" id="header-sub">Sree Dharmasastha Kshethram</span>
                 </div>
             </a>
-
             <ul class="hidden lg:flex gap-8 items-center font-extrabold uppercase tracking-widest text-[11px]">
                 <li><a href="index.html" class="text-white hover:text-amber-300 transition-colors drop-shadow-sm">Home</a></li>
                 <li><a href="booking.html" class="text-white hover:text-amber-300 transition-colors drop-shadow-sm">Booking Pooja</a></li>
                 <li><a href="booking.html" class="gold-btn">Book Now</a></li>
             </ul>
-
-            <button onclick="toggleMobileMenu()" class="lg:hidden text-white text-3xl focus:outline-none" id="mobile-toggle">
-                <i class="fa-solid fa-bars"></i>
-            </button>
+            <button onclick="toggleMobileMenu()" class="lg:hidden text-white text-3xl focus:outline-none" id="mobile-toggle"><i class="fa-solid fa-bars"></i></button>
         </nav>
     </header>
 
     <div id="mobile-menu-overlay" class="fixed inset-0 bg-[#0c0a00]/95 backdrop-blur-xl z-[60] mobile-menu flex flex-col items-center justify-center space-y-8 lg:hidden">
-        <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-white text-4xl opacity-70 hover:opacity-100">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-        
+        <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-white text-4xl opacity-70 hover:opacity-100"><i class="fa-solid fa-xmark"></i></button>
         <img src="images/ayyappa1.png" class="h-24 w-auto radiant-logo mb-6" alt="Logo">
-        
         <a href="index.html" class="text-2xl font-black divine-font text-[#B8860B] tracking-wider">Home</a>
         <a href="booking.html" class="text-2xl font-black divine-font text-white tracking-wider hover:text-[#B8860B]">Pooja Booking</a>
         <a href="https://www.google.com/maps/search/?api=1&query=Manikandapuram+Sree+Dharmasastha+Kshethram+Kannur" target="_blank" class="text-2xl font-black divine-font text-white tracking-wider hover:text-[#B8860B]">Location</a>
-        
         <a href="booking.html" class="gold-btn text-lg px-8 py-3 mt-4">Book Now</a>
     </div>
 
-    <section class="hero-home text-center px-6 pt-16 md:pt-20">
+    <section class="hero-home text-center px-6 pt-48 md:pt-0">
         <div id="bg1" class="hero-bg opacity-100" style="background-image: url('images/banner1.png');"></div>
         <div id="bg2" class="hero-bg opacity-0" style="background-image: url('images/banner3.png');"></div>
         <div id="bg3" class="hero-bg opacity-0" style="background-image: url('images/banner2.png');"></div>
         <div id="bg4" class="hero-bg opacity-0" style="background-image: url('images/banner4.png');"></div>
-        
         <div class="hero-overlay"></div>
         
-        <div class="max-w-5xl relative z-10 flex flex-col items-center">
-            <h1 class="glitter-text text-5xl md:text-8xl font-bold mb-1 tracking-tight leading-none">Saranam Ayyappa</h1>
+        <div class="max-w-5xl relative z-10 flex flex-col items-center text-backdrop">
+            <h1 class="glitter-text text-4xl md:text-8xl font-bold mb-1 tracking-tight leading-none">Saranam Ayyappa</h1>
             
-            <div class="h-px w-24 bg-gradient-to-r from-transparent via-[#B8860B] to-transparent my-3 opacity-80"></div>
+            <div class="h-px w-24 bg-gradient-to-r from-transparent via-[#B8860B] to-transparent my-2 opacity-80"></div>
 
-            <p class="text-amber-50 text-lg md:text-3xl font-medium tracking-widest max-w-5xl leading-relaxed drop-shadow-xl divine-font text-center" style="text-shadow: 0 2px 15px rgba(0,0,0,0.7);">
+            <p class="text-white text-base md:text-3xl font-medium tracking-widest max-w-5xl leading-relaxed divine-font text-center high-vis-text">
                 <span class="block mb-1">Bhootha Nātha Sadhānātha Sarva Bhootha Dayāpara</span>
-                <span class="block text-amber-100/95">Raksha Raksha Mahābāho Śāstre Tubhyaṁ Namō Namah</span>
+                <span class="block text-white/95">Raksha Raksha Mahābāho Śāstre Tubhyaṁ Namō Namah</span>
             </p>
         </div>
     </section>
@@ -215,7 +179,6 @@
                 </div>
                 <p id="status-desc" class="text-[11px] mt-3 text-gray-500 font-bold uppercase tracking-wider">Syncing Calendar...</p>
             </div>
-
             <div class="time-card">
                 <span class="text-[12px] font-black uppercase tracking-[0.25em] text-[#B8860B] mb-4 flex items-center gap-2">
                     <i class="fa-solid fa-calendar-check"></i> Open Days
@@ -227,7 +190,6 @@
                     <li>Mandala Masam Days</li>
                 </ul>
             </div>
-
             <div class="time-card">
                 <span class="text-[12px] font-black uppercase tracking-[0.25em] text-[#B8860B] mb-4 flex items-center gap-2">
                     <i class="fa-solid fa-clock"></i> Darshan Time
@@ -248,8 +210,7 @@
 
     <section class="py-24 px-6 max-w-7xl mx-auto">
         <h2 class="text-center text-5xl font-bold mb-16 text-[#B8860B] divine-font">Divine Presences</h2>
-        <div id="deity-grid" class="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            </div>
+        <div id="deity-grid" class="grid grid-cols-2 lg:grid-cols-4 gap-8"></div>
     </section>
 
     <footer class="bg-white py-12 px-6 border-t border-gray-100 text-center">
@@ -259,25 +220,16 @@
         </p>
     </footer>
 
-    <a href="https://www.google.com/maps/search/?api=1&query=Manikandapuram+Sree+Dharmasastha+Kshethram+Kannur" 
-       target="_blank"
-       class="fixed bottom-6 left-6 z-[1000] w-14 h-14 rounded-full shadow-xl flex items-center justify-center text-xl map-float-btn"
-       title="Open Map Location">
-        <i class="fa-solid fa-location-dot"></i>
-    </a>
+    <a href="https://www.google.com/maps/search/?api=1&query=Manikandapuram+Sree+Dharmasastha+Kshethram+Kannur" target="_blank" class="fixed bottom-6 left-6 z-[1000] w-14 h-14 rounded-full shadow-xl flex items-center justify-center text-xl map-float-btn" title="Open Map Location"><i class="fa-solid fa-location-dot"></i></a>
 
     <div class="fixed bottom-6 right-6 z-[1000]">
-        
         <button onclick="toggleChat()" class="w-16 h-16 rounded-full shadow-2xl flex items-center justify-center text-white text-2xl chat-float-btn transform hover:scale-105 transition-transform duration-300">
             <i class="fa-solid fa-comment-dots text-2xl"></i>
             <div class="absolute top-4 right-4 w-2 h-2 bg-red-500 rounded-full animate-pulse border border-white"></div>
         </button>
-
         <div id="chat-box" class="chat-interface absolute bottom-20 right-0 w-[350px] h-[500px] bg-white rounded-[2rem] shadow-2xl flex flex-col overflow-hidden border border-white/20 ring-1 ring-black/5">
-            
             <div class="bg-gradient-to-r from-[#B8860B] to-[#996515] p-6 relative overflow-hidden h-28 flex items-center">
                 <img src="images/ayyappa1.png" class="absolute right-0 bottom-0 h-full w-auto object-contain opacity-40 mix-blend-overlay">
-                
                 <div class="relative z-10 w-full">
                     <p class="text-[10px] text-amber-100 font-bold uppercase tracking-widest mb-1">Temple AI Assistant</p>
                     <h3 class="text-white text-2xl font-bold font-sans tracking-wide">Swami Saranam</h3>
@@ -287,32 +239,21 @@
                     </div>
                 </div>
             </div>
-
             <div id="chat-content" class="flex-1 p-5 overflow-y-auto bg-gray-50 space-y-4 scrollbar-hide">
                 <div class="flex gap-3">
-                    <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0 text-[#B8860B] border border-amber-200">
-                        <i class="fa-solid fa-hands-praying text-xs"></i>
-                    </div>
-                    <div class="msg-bot p-4 rounded-2xl rounded-tl-none text-sm leading-relaxed">
-                        Swami Saranam! 🙏 <br>I am the temple's AI assistant. How may I guide you today?
-                    </div>
+                    <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0 text-[#B8860B] border border-amber-200"><i class="fa-solid fa-hands-praying text-xs"></i></div>
+                    <div class="msg-bot p-4 rounded-2xl rounded-tl-none text-sm leading-relaxed">Swami Saranam! 🙏 <br>I am the temple's AI assistant. How may I guide you today?</div>
                 </div>
             </div>
-
             <div class="px-5 py-2 bg-gray-50 overflow-x-auto flex gap-2 no-scrollbar" id="chip-container">
                 <button onclick="sendQuickReply('When is the next Darshan?')" class="chat-chip">🕒 Timings</button>
                 <button onclick="sendQuickReply('How to book a Pooja?')" class="chat-chip">📝 Booking</button>
                 <button onclick="sendQuickReply('Where is the temple located?')" class="chat-chip">📍 Location</button>
             </div>
-
             <div class="p-4 bg-white border-t border-gray-100">
                 <div class="flex gap-2 items-center bg-gray-100 rounded-full px-4 py-2 border border-transparent focus-within:border-[#B8860B] focus-within:bg-white transition-all">
-                    <input type="text" id="chat-input" placeholder="Type your message..." 
-                           class="flex-1 bg-transparent text-sm outline-none text-gray-700 placeholder-gray-400"
-                           onkeypress="handleEnter(event)">
-                    <button onclick="sendChat()" class="w-8 h-8 flex items-center justify-center text-[#B8860B] hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-paper-plane"></i>
-                    </button>
+                    <input type="text" id="chat-input" placeholder="Type your message..." class="flex-1 bg-transparent text-sm outline-none text-gray-700 placeholder-gray-400" onkeypress="handleEnter(event)">
+                    <button onclick="sendChat()" class="w-8 h-8 flex items-center justify-center text-[#B8860B] hover:scale-110 transition-transform"><i class="fa-solid fa-paper-plane"></i></button>
                 </div>
             </div>
         </div>
@@ -345,200 +286,83 @@
     </script>
 
     <script>
-        // MOBILE MENU
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu-overlay');
-            menu.classList.toggle('active');
-        }
+        function toggleMobileMenu() { document.getElementById('mobile-menu-overlay').classList.toggle('active'); }
 
-        // HEADER SCROLL
         window.addEventListener('scroll', () => {
             const header = document.getElementById('main-header');
             const title = document.getElementById('header-title');
             const sub = document.getElementById('header-sub');
             const links = document.querySelectorAll('nav a');
             const toggle = document.getElementById('mobile-toggle');
-            
             if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-                title.classList.remove('text-white'); title.classList.add('text-black');
-                sub.classList.remove('text-amber-200'); sub.classList.add('text-[#B8860B]');
-                toggle.classList.remove('text-white'); toggle.classList.add('text-[#B8860B]');
-                links.forEach(l => { if(!l.classList.contains('gold-btn')) l.classList.replace('text-white', 'text-gray-800'); });
+                header.classList.add('scrolled'); title.classList.replace('text-white', 'text-black'); sub.classList.replace('text-amber-200', 'text-[#B8860B]'); toggle.classList.replace('text-white', 'text-[#B8860B]'); links.forEach(l => { if(!l.classList.contains('gold-btn')) l.classList.replace('text-white', 'text-gray-800'); });
             } else {
-                header.classList.remove('scrolled');
-                title.classList.add('text-white'); title.classList.remove('text-black');
-                sub.classList.add('text-amber-200'); sub.classList.remove('text-[#B8860B]');
-                toggle.classList.add('text-white'); toggle.classList.remove('text-[#B8860B]');
-                links.forEach(l => { if(!l.classList.contains('gold-btn')) l.classList.replace('text-gray-800', 'text-white'); });
+                header.classList.remove('scrolled'); title.classList.replace('text-black', 'text-white'); sub.classList.replace('text-[#B8860B]', 'text-amber-200'); toggle.classList.replace('text-[#B8860B]', 'text-white'); links.forEach(l => { if(!l.classList.contains('gold-btn')) l.classList.replace('text-gray-800', 'text-white'); });
             }
         });
 
-        // 4-IMAGE SLIDER LOGIC
-        let currentSlide = 1;
-        const totalSlides = 4;
-
+        let currentSlide = 1; const totalSlides = 4;
         function cycleHeroImages() {
-            const currentBg = document.getElementById(`bg${currentSlide}`);
-            currentSlide = (currentSlide % totalSlides) + 1;
-            const nextBg = document.getElementById(`bg${currentSlide}`);
-
-            for(let i=1; i<=totalSlides; i++) {
-                if(i !== currentSlide) {
-                    document.getElementById(`bg${i}`).style.opacity = '0';
-                }
-            }
+            const currentBg = document.getElementById(`bg${currentSlide}`); currentSlide = (currentSlide % totalSlides) + 1; const nextBg = document.getElementById(`bg${currentSlide}`);
+            for(let i=1; i<=totalSlides; i++) if(i !== currentSlide) document.getElementById(`bg${i}`).style.opacity = '0';
             nextBg.style.opacity = '1';
         }
 
-        // CALENDAR & STATUS
-        const templeSchedule = {
-            "2026-01-24": {"day": "Saturday", "m": [5.5, 9.5], "e": [17.5, 19.5]},
-            "2026-01-31": {"day": "Saturday", "m": [5.5, 9.5], "e": [17.5, 19.5]},
-            "2026-02-07": {"day": "Saturday", "m": [5.5, 9.5], "e": [17.5, 19.5]},
-            "2026-02-12": {"day": "Thursday", "m": null, "e": [17.5, 19.5]},
-            "2026-02-13": {"day": "Friday", "m": [5.5, 9.5], "e": [17.5, 20.0]},
-            "2026-02-14": {"day": "Saturday", "m": [5.5, 9.5], "e": [17.5, 19.5]},
-            "2026-02-15": {"day": "Sunday", "m": [5.5, 9.5], "e": [17.5, 20.0]}
-        };
+        const templeSchedule = { "2026-01-24": {"day": "Saturday", "m": [5.5, 9.5], "e": [17.5, 19.5]}, "2026-01-31": {"day": "Saturday", "m": [5.5, 9.5], "e": [17.5, 19.5]}, "2026-02-07": {"day": "Saturday", "m": [5.5, 9.5], "e": [17.5, 19.5]}, "2026-02-12": {"day": "Thursday", "m": null, "e": [17.5, 19.5]}, "2026-02-13": {"day": "Friday", "m": [5.5, 9.5], "e": [17.5, 20.0]}, "2026-02-14": {"day": "Saturday", "m": [5.5, 9.5], "e": [17.5, 19.5]}, "2026-02-15": {"day": "Sunday", "m": [5.5, 9.5], "e": [17.5, 20.0]} };
 
         function getDetailedStatus() {
-            const now = new Date();
-            const dateStr = now.toISOString().split('T')[0];
-            const hour = now.getHours() + now.getMinutes()/60;
-            const today = templeSchedule[dateStr];
-            let isOpen = false;
-
-            if(today) {
-                if(today.m && hour >= today.m[0] && hour <= today.m[1]) isOpen = true;
-                if(today.e && hour >= today.e[0] && hour <= today.e[1]) isOpen = true;
-            }
-
+            const now = new Date(); const dateStr = now.toISOString().split('T')[0]; const hour = now.getHours() + now.getMinutes()/60; const today = templeSchedule[dateStr]; let isOpen = false;
+            if(today) { if(today.m && hour >= today.m[0] && hour <= today.m[1]) isOpen = true; if(today.e && hour >= today.e[0] && hour <= today.e[1]) isOpen = true; }
             if(isOpen) return { open: true, msg: "The temple is currently OPEN for Darshan." };
-
             const dates = Object.keys(templeSchedule).sort();
-            for(let d of dates) {
-                if(d >= dateStr) {
-                    const sched = templeSchedule[d];
-                    if(d === dateStr) {
-                         if(sched.e && hour < sched.e[0]) return { open: false, msg: `The temple will open today evening at 05:30 PM.` };
-                    }
-                    const [y, m, day] = d.split('-');
-                    const nextTime = sched.m ? "05:30 AM" : "05:30 PM";
-                    return { open: false, msg: `The temple is closed. Next Darshan is on ${day}-${m}-${y} (${sched.day}) at ${nextTime}.` };
-                }
-            }
+            for(let d of dates) { if(d >= dateStr) { const sched = templeSchedule[d]; if(d === dateStr && sched.e && hour < sched.e[0]) return { open: false, msg: `The temple will open today evening at 05:30 PM.` }; const [y, m, day] = d.split('-'); const nextTime = sched.m ? "05:30 AM" : "05:30 PM"; return { open: false, msg: `The temple is closed. Next Darshan is on ${day}-${m}-${y} (${sched.day}) at ${nextTime}.` }; } }
             return { open: false, msg: "Please check the full calendar for upcoming dates." };
         }
 
         function updateStatus() {
-            const statusBox = document.getElementById('live-status');
-            const bubble = document.getElementById('status-bubble');
-            const desc = document.getElementById('status-desc');
-            const status = getDetailedStatus();
-
-            statusBox.innerText = status.open ? "OPEN NOW" : "CLOSED";
-            statusBox.style.color = status.open ? "#15803d" : "#b91c1c";
-            bubble.className = status.open ? "bubble bg-open" : "bubble bg-closed";
-            desc.innerText = status.open ? "Devotees Welcome" : status.msg.split('. ')[1] || "Check Schedule";
+            const statusBox = document.getElementById('live-status'); const bubble = document.getElementById('status-bubble'); const desc = document.getElementById('status-desc'); const status = getDetailedStatus();
+            statusBox.innerText = status.open ? "OPEN NOW" : "CLOSED"; statusBox.style.color = status.open ? "#15803d" : "#b91c1c"; bubble.className = status.open ? "bubble bg-open" : "bubble bg-closed"; desc.innerText = status.open ? "Devotees Welcome" : status.msg.split('. ')[1] || "Check Schedule";
         }
 
-        function initPage() {
-            updateStatus(); 
-            setInterval(updateStatus, 30000);
-            if(window.loadDeities) window.loadDeities();
-            
-            // START SLIDER (5 Seconds per image)
-            setInterval(cycleHeroImages, 5000);
-        }
+        function initPage() { updateStatus(); setInterval(updateStatus, 30000); if(window.loadDeities) window.loadDeities(); setInterval(cycleHeroImages, 5000); }
 
-        // --- MODERN CHATBOT LOGIC ---
-        function toggleChat() { 
-            const chatBox = document.getElementById('chat-box');
-            chatBox.classList.toggle('active');
-        }
-
+        function toggleChat() { document.getElementById('chat-box').classList.toggle('active'); }
         function handleEnter(e) { if(e.key === 'Enter') sendChat(); }
-
-        function sendQuickReply(text) {
-            const input = document.getElementById('chat-input');
-            input.value = text;
-            sendChat();
-        }
+        function sendQuickReply(text) { document.getElementById('chat-input').value = text; sendChat(); }
 
         function sendChat() {
-            const i = document.getElementById('chat-input');
-            const c = document.getElementById('chat-content');
-            const text = i.value.trim();
-            
+            const i = document.getElementById('chat-input'); const c = document.getElementById('chat-content'); const text = i.value.trim();
             if(!text) return;
 
-            // 1. User Message
-            c.innerHTML += `
-                <div class="flex justify-end gap-3 animation-fade-in">
-                    <div class="msg-user p-4 rounded-2xl rounded-tr-none text-sm max-w-[80%]">
-                        ${text}
-                    </div>
-                </div>`;
-            i.value = ""; 
-            c.scrollTop = c.scrollHeight;
+            c.innerHTML += `<div class="flex justify-end gap-3 animation-fade-in"><div class="msg-user p-4 rounded-2xl rounded-tr-none text-sm max-w-[80%]">${text}</div></div>`;
+            i.value = ""; c.scrollTop = c.scrollHeight;
 
-            // 2. Add GOLDEN AI "Generating" Indicator
             const typingId = 'typing-' + Date.now();
+            // --- UPDATED ANIMATION MARKUP ---
             c.innerHTML += `
                 <div id="${typingId}" class="flex gap-3">
-                    <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0 text-[#B8860B] border border-amber-200">
-                         <i class="fa-solid fa-hands-praying text-xs"></i>
-                    </div>
+                    <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0 text-[#B8860B] border border-amber-200"><i class="fa-solid fa-hands-praying text-xs"></i></div>
                     <div class="msg-bot p-4 rounded-2xl rounded-tl-none text-sm flex gap-1 items-center">
-                        <div class="ai-generate-loader"></div>
-                        <span class="text-xs text-gray-400 ml-2 animate-pulse">Consulting schedule...</span>
+                        <div class="ai-flow-container">
+                            <i class="fa-solid fa-star flow-star"></i>
+                            <i class="fa-solid fa-star flow-star"></i>
+                            <i class="fa-solid fa-star flow-star"></i>
+                        </div>
+                        <span class="text-xs text-[#B8860B] font-bold ml-2 animate-pulse tracking-wide">DIVINING...</span>
                     </div>
                 </div>`;
             c.scrollTop = c.scrollHeight;
 
-            // 3. Simulate AI Delay & Response
             setTimeout(() => {
-                const typingEl = document.getElementById(typingId);
-                if(typingEl) typingEl.remove();
-
-                let reply = "";
-                const lower = text.toLowerCase();
+                const typingEl = document.getElementById(typingId); if(typingEl) typingEl.remove();
+                let reply = ""; const lower = text.toLowerCase();
+                if(lower.includes("time") || lower.includes("open") || lower.includes("darshan")) { const status = getDetailedStatus(); reply = `<strong>Swami Saranam!</strong><br>${status.msg}`; }
+                else if(lower.includes("book") || lower.includes("pooja") || lower.includes("offering")) { reply = "You can book poojas directly through the <strong>'Booking'</strong> page on this website. <a href='booking.html' class='text-[#B8860B] underline font-bold'>Click here</a> to proceed."; }
+                else if(lower.includes("location") || lower.includes("where") || lower.includes("map")) { reply = "We are located at Panapuzha, Kannur. Click the map icon on the bottom left for Google Maps directions."; }
+                else if(lower.includes("contact") || lower.includes("phone") || lower.includes("call") || lower.includes("number")) { reply = `<strong>Swami Saranam!</strong><br>You can reach the Devaswom Office directly at:<br>📞 <strong>+91 94000 00000</strong><br>We are available during Darshan hours.`; }
+                else { reply = `<strong>Swami Saranam!</strong><br>I am an AI assistant trained on Temple Schedules. For "<em>${text}</em>", please reach our Devaswom Office:<br>📞 <strong>+91 94000 00000</strong>`; }
                 
-                // SMART MATCHING
-                if(lower.includes("time") || lower.includes("open") || lower.includes("darshan")) {
-                    const status = getDetailedStatus();
-                    reply = `<strong>Swami Saranam!</strong><br>${status.msg}`;
-                }
-                else if(lower.includes("book") || lower.includes("pooja") || lower.includes("offering")) {
-                    reply = "You can book poojas directly through the <strong>'Booking'</strong> page on this website. <a href='booking.html' class='text-[#B8860B] underline font-bold'>Click here</a> to proceed.";
-                }
-                else if(lower.includes("location") || lower.includes("where") || lower.includes("map")) {
-                    reply = "We are located at Panapuzha, Kannur. Click the map icon on the bottom left for Google Maps directions.";
-                }
-                else if(lower.includes("contact") || lower.includes("phone") || lower.includes("call") || lower.includes("number")) {
-                    reply = `<strong>Swami Saranam!</strong><br>You can reach the Devaswom Office directly at:<br>📞 <strong>+91 94000 00000</strong><br>We are available during Darshan hours.`;
-                }
-                else {
-                    // INTELLIGENT FALLBACK
-                    reply = `<strong>Swami Saranam!</strong><br>
-                    I am an AI assistant trained on Temple Schedules and Bookings.
-                    <br><br>
-                    For your specific enquiry regarding "<em>${text}</em>", please reach our Devaswom Office directly:
-                    <br>📞 <strong>+91 94000 00000</strong>
-                    <br>
-                    We are happy to assist you personally.`;
-                }
-
-                c.innerHTML += `
-                    <div class="flex gap-3 animation-fade-in">
-                        <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0 text-[#B8860B] border border-amber-200">
-                             <i class="fa-solid fa-hands-praying text-xs"></i>
-                        </div>
-                        <div class="msg-bot p-4 rounded-2xl rounded-tl-none text-sm leading-relaxed">
-                            ${reply}
-                        </div>
-                    </div>`;
+                c.innerHTML += `<div class="flex gap-3 animation-fade-in"><div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0 text-[#B8860B] border border-amber-200"><i class="fa-solid fa-hands-praying text-xs"></i></div><div class="msg-bot p-4 rounded-2xl rounded-tl-none text-sm leading-relaxed">${reply}</div></div>`;
                 c.scrollTop = c.scrollHeight;
             }, 1800);
         }
